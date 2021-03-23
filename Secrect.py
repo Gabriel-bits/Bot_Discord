@@ -1,6 +1,5 @@
 #TOKEN:
 
-
 def TOKEN():
     tok1 = ('NzQ1MDMwNzUxNjM2MD')
     tok2 = ('I5NTMw.Xzr19Q.nZ373hAi')
