@@ -3,7 +3,7 @@ from fuct import*
 from discord.ext.commands import AutoShardedBot, when_mentioned_or
 from discord.ext.commands.errors import *
 from discord.ext import tasks
-from Secrect import Secret
+from secrect import Secret
 from docs import comandos
 import traceback
 import multiprocessing
