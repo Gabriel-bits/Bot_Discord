@@ -2,6 +2,7 @@ import json, os
 import selenium
 import time
 import asyncio
+
 import discord
 from discord.ext import commands
 from discord.ext import tasks
@@ -10,6 +11,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 import random
+import googlesearch
+from googlesearch import search
+
+cor = 14735616
 
 if not os.path.exists("perfils"):
     os.mkdir("perfils")
@@ -179,9 +184,14 @@ def memes_ale1():
     return arqv
 
 
-#============================================================================================#
+#===========================================================================================
 
-
+async def pesq_yt(pesquisa):
+    embed=discord.Embed(title="**YouTube**", description=f"Resultados" , color=cor)
+    for resultado in search(f'"{pesquisa}" youtube', lang='pt',stop=10):
+        embed.add_field(name=f'<@{resultado}>' , value=resultado, inline=False)
+    
+    await embed
 
 
 

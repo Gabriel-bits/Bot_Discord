@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext import tasks
 from discord.ext.commands.errors import CommandInvokeError
-from fuct import*
+from cogs.fuct import*
 from discord import emoji
 import googlesearch
 from googlesearch import search
@@ -36,9 +36,9 @@ class comandos(commands.Cog):
         embed.add_field(name="Comandos", value="`?cmds`", inline=True)
         embed.add_field(name="Prefixos", value="`?prefixos`", inline=True)
         embed.add_field(name="Link do bot", value="`?link_bot`", inline=True)
-        embed.add_field(name="Perfil animado para live", value="`?Perfil_A`", inline=False)
-        embed.add_field(name="Suporte", value=f"**[{'Click Me'}]({'https://discord.gg/R3pcFs9'})**", inline=True)
+        embed.add_field(name="Perfil animado...", value="`?Perfil_A`", inline=True)
         embed.add_field(name="Repositorio", value="`?repositorio`", inline=True)
+        embed.add_field(name="Suporte", value=f"**[{'Click Me'}]({'https://discord.gg/R3pcFs9'})**", inline=True)
         help_eact = await ctx.send(embed=embed)
         await help_eact.add_reaction('👍')
 
@@ -168,11 +168,20 @@ class comandos(commands.Cog):
 
     @commands.command(aliases=['sch_yt'])
     async def search_yt(self, ctx, *, pesquisa):
-        result = []
+
+        """
         embed=discord.Embed(title="**YouTube**", description=f"Resultados" , color=cor)
         for resultado in search(f'"{pesquisa}" youtube', lang='pt',stop=10):
-            embed.add_field(name=f'<@{resultado}>' , value=resultado, inline=False)
-            
+            embed.add_field(name=f'<@{resultado}>' , value=resultado, inline=False)    
+
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(pesq_yt(pesquisa))
+        """
+
+        pes = pesq_yt(pesquisa)
+        
+        embed = pes
+
         await ctx.send(embed=embed)
 
 

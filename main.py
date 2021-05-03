@@ -1,10 +1,11 @@
 import discord
-from fuct import*
+from cogs.fuct import*
 from discord.ext.commands import AutoShardedBot, when_mentioned_or
 from discord.ext.commands.errors import *
 from discord.ext import tasks
 from secrect import Secret
-from docs import comandos
+from cogs import comandos
+
 import traceback
 import multiprocessing
 import json, os, sys, asyncio, time
@@ -30,17 +31,17 @@ async def on_ready():
     # await client.change_presence(activity=discord.Streaming(name=Pref+'help', url='https://www.twitch.tv/narutozini'))
 
 
-@client.listen("on_command_error")
-async def error_handler(ctx, error):
-    error = getattr(error, 'original', error)
-    cmd_name = ctx.message.content.split()[0]
-    if isinstance(error, discord.ext.commands.errors.CommandNotFound):
-        embed=discord.Embed(title=f"@{ctx.author.name} o comando `{cmd_name}` não existe.", color=cor_alert)
-        msg = await ctx.send(embed=embed)
-        return
+# @client.listen("on_command_error")
+# async def error_handler(ctx, error):
+#     error = getattr(error, 'original', error)
+#     cmd_name = ctx.message.content.split()[0]
+#     if isinstance(error, discord.ext.commands.errors.CommandNotFound):
+#         embed=discord.Embed(title=f"@{ctx.author.display_name} o comando `{cmd_name}` não existe.", color=cor_alert)
+#         msg = await ctx.send(embed=embed)
+#         return
 
 # outros erros vao aparecer no terminal
-    traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+#    traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 @client.listen("on_command_error")
 async def error_handler(ctx, error):
@@ -52,12 +53,11 @@ async def error_handler(ctx, error):
 # outros erros vao aparecer no terminal
     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
-modulos = ["docs.comandos", "docs.status"]
+modulos = ['cogs.comandos', "cogs.status"]
 
 if __name__ == "__main__":
     for modulo in modulos:
         client.load_extension(modulo)
-
 
 
 client.run(Secret)
