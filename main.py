@@ -50,7 +50,7 @@ async def error_handler(ctx, error):
         perms = "\n".join(error.missing_perms)
         return await ctx.send(f"Você precisa da permissão `{perms}` para usar este comando")
 
-# outros erros vao aparecer no terminal
+    # outros erros vao aparecer no terminal
     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 modulos = ['cogs.comandos', "cogs.status"]
