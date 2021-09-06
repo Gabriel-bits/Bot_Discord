@@ -1,11 +1,8 @@
 import discord
-from cogs.fuct import*
-from discord.ext.commands import AutoShardedBot
-from discord.ext.commands.errors import *
-from discord.ext import tasks
-# from secrect import Secret
-from cogs import comandos
 import tracemalloc
+from discord.ext.commands import AutoShardedBot
+from secrect import Secret
+from cogs.fuct import load_config
 import json, os, sys, asyncio, time
 
 config = load_config()
