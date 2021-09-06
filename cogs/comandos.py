@@ -76,13 +76,13 @@ class comandos(commands.Cog):
 
     @commands.command()
     async def Perfil_A(self, ctx):
-        embed=discord.Embed(title="Perfil animado pra ser usado no obs", description="Seguindo os comandos abaixo vc poderar o codg do seu perfil animado para ser usado no obs se segindo a seguinte instrução( Obs -> add objt na cena -> add browser -> espaço para codg CSS ) para mais imformações {Pref}Pa_tutorial." , color=cor)
-        embed.set_author(name="Straem_perfil",url="https://emoji.gg/assets/emoji/7277_green_flame.gif" , icon_url="https://emoji.gg/assets/emoji/7277_green_flame.gif")
-        embed.add_field(name=f"* `{Pref}Pa_perfil`", value=f"ex:({Pref}Pa_perfil + @você + imagem/gif_1 + imagem/gif2) \rimagem/gif_1 que ficara visivel quando você parar de falar.\rimagem/gif_2 que ficara visivel quando você falar algo.", inline=False)
-        embed.add_field(name=f"* `{Pref}Pa_tample`", value=f"ex:({Pref}Pa_tample + Nome_do_templeite + imagem/gif_1 + imagem/gif2) \rVocê podera criar uma templeite que ficarar salvo e poderar ser reutilizado por outras pessosas", inline=False)
-        embed.add_field(name=f"* `{Pref}Pa_codg_t`", value=f"ex:({Pref}Pa_codg_t + Nome_do_templeite + @possoa_que_vai_ultilizar)\rO e necessario por o nome do templeite existente colocar o nome do templeite e so mencionar você ou outra pessoa, loga apos vai receber mensagem com o codígo CSS. ", inline=False)
+        embed=discord.Embed(title="Perfil animado pra ser usado no obs", description="Seguindo os comandos abaixo vc recebera o codg do seu perfil animado para ser usado no obs se seguindo a seguinte instrução( Obs -> add objt na cena -> add browser -> espaço para codg CSS ) para mais informações {Pref}Pa_tutorial." , color=cor)
+        embed.set_author(name="Stream_perfil",url="https://emoji.gg/assets/emoji/7277_green_flame.gif" , icon_url="https://emoji.gg/assets/emoji/7277_green_flame.gif")
+        embed.add_field(name=f"* `{Pref}Pa_perfil`", value=f"ex:({Pref}Pa_perfil + @você + imagem/gif_1 + imagem/gif2) \rimagem/gif_1 que ficara visivel quando você parar de falar.\rimagem/gif_2 que ficara visível quando você falar algo.", inline=False)
+        embed.add_field(name=f"* `{Pref}Pa_tample`", value=f"ex:({Pref}Pa_tample + Nome_do_templeite + imagem/gif_1 + imagem/gif2) \rVocê podera criar uma templeite que ficara salvo e podera ser reutilizado por outras pessoas", inline=False)
+        embed.add_field(name=f"* `{Pref}Pa_codg_t`", value=f"ex:({Pref}Pa_codg_t + Nome_do_templeite + @pessoa_que_vai_utilizar)\rO e necessário por o nome do templeite existente colocar o nome do templeite e so mencionar você ou outra pessoa, loga apos vai receber mensagem com o codígo CSS. ", inline=False)
         embed.add_field(name=f"* `{Pref}Pa_tem_p`", value=f"ex:({Pref}Pa_tem_p) Para olhar/ver quantos templeites existe e mostra o nome deles enforma de lista.", inline=False)
-        embed.add_field(name=f"* `{Pref}Str_tutorial`", value=f"ex:({Pref}Str_codg) \rendisponivel por em quanto vai tmnc passei tres dia fazendo cada codg dessa aba.", inline=False)
+        embed.add_field(name=f"* `{Pref}Str_tutorial`", value=f"ex:({Pref}Str_codg) \rindisponível por em quanto vai tmnc passei tres dia fazendo cada codg dessa aba.", inline=False)
         embed.set_footer(text="por enquanto e so.\r")
         await ctx.send(embed=embed)
 
@@ -118,10 +118,10 @@ class comandos(commands.Cog):
     @commands.command()
     async def inf(self, ctx , *, usuario:discord.Member= None):
         if usuario is None:
-            await ctx.send(Pref+"inf + @usuario")
+            await ctx.send(Pref+"inf + @usuário")
             return
         usuario
-        embed=discord.Embed(title="Informaçao do usuário ", color=cor)
+        embed=discord.Embed(title="Informação do usuário ", color=cor)
         embed.set_thumbnail(url=usuario.avatar_url)
         embed.add_field(name="Nome:", value="`{}`".format(usuario.name), inline=True)
         embed.add_field(name="Apelido:", value="`@{}`".format(usuario.display_name), inline=True)
@@ -146,13 +146,13 @@ class comandos(commands.Cog):
     @commands.command(aliases=['cler', 'clr'])
     async def clear(self, ctx , *,quantia: int= None):
 
-        if ctx.author.id == 551436913639292928:
+        if ctx.author.id == 5514369136392929280:
             if quantia == None:
                 embed=discord.Embed(title=f"**Erro no comando e necessário de uma quantia ex:({Pref}Clear + (Numero)**", color=cor_alert)
                 await ctx.send(embed=embed)
                 return
-            mesg = await ctx.channel.history(limit=quantia + 1).flatten()
-            for mensagem in mesg:
+            megs = await ctx.channel.history(limit=quantia + 1).flatten()
+            for mensagem in megs:
                 await mensagem.delete()
         else:
             embed=discord.Embed(title="**Você não tem permiçao de usar esse comando**", color=cor_alert)
@@ -167,7 +167,7 @@ class comandos(commands.Cog):
 
 
     @commands.command(aliases=['sch_yt'])
-    async def search_yt(self, ctx, *, pesquisa):
+    async def pesquisa_yt(self, ctx, *, pesquisa):
 
         """
         embed=discord.Embed(title="**YouTube**", description=f"Resultados" , color=cor)
@@ -185,7 +185,7 @@ class comandos(commands.Cog):
         await ctx.send(embed=embed)
 
 
-    @commands.command(aliases=['mems', 'mms'])
+    @commands.command(aliases=['mems', 'mms', 'meme'])
     async def memes(self, ctx):
         await ctx.message.delete()
         meme = memes_ale1()
@@ -213,8 +213,8 @@ class comandos(commands.Cog):
         '''
         !! cuidado area perigosa !!
         args = id do usuario
-        args2 = imagem not_speack
-        args3 = imagem speack
+        args2 = imagem not_speak
+        args3 = imagem speak
         '''
 
         if args == None is args2 == None is args3 == None:
@@ -327,9 +327,6 @@ class comandos(commands.Cog):
             channel = ctx.message.author.voice.channel
 
         await channel.connect()
-
-
-
 
 def setup(client):
     client.add_cog(comandos(client))
