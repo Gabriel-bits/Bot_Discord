@@ -69,6 +69,18 @@ def load_config():
 
 #======================================================================#
 
+def save_dw_sets(id_channel, file):
+    with open(f"./minigames/sala_{id_channel}.json", "w") as f:
+        json.dump(file, f)
+
+def load_dw_sets(id_channel):
+    with open(f"./minigames/sala_{id_channel}.json", "r") as f:
+        sets_sala = json.load(f)
+
+    return sets_sala 
+
+#======================================================================#
+
 def pesq_meme():
     """
     url1 = 
@@ -193,5 +205,9 @@ async def pesq_yt(pesquisa):
     
     await embed
 
+#=======================
 
+def embed_rapida(msg):
+    embed=discord.Embed(description=msg, color=cor)
+    return embed
 

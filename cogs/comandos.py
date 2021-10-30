@@ -1,10 +1,10 @@
 import discord
+from discord import client
+from discord import mentions
+from discord import embeds
 from discord.ext import commands
-from discord.ext import tasks
-from discord.ext.commands.errors import CommandInvokeError
 from cogs.fuct import*
 from discord import emoji
-import googlesearch
 from googlesearch import search
 import json, os
 import asyncio
@@ -21,6 +21,17 @@ class comandos(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+        embed=discord.Embed(title="comandos primários do bot", description="temos uma função especial que se você estiver em duvida sobre os prefixos dos outros bots você \rpode usar o comando abaixo (prefixos).", color=cor)
+        embed.set_author(name="ZEN Comandos", url="https://discord.com/api/oauth2/authorize?client_id=745030751636029530&permissions=8&scope=bot" , icon_url="")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/745030751636029530/f79fa139030a22e568cd122e63bf84dc.webp?size=1024")
+        embed.add_field(name="Comandos", value=f"`{Pref}cmds`", inline=True)
+        embed.add_field(name="Bots", value=f"`{Pref}bots`", inline=True)
+        embed.add_field(name="Link do bot", value=f"`{Pref}link_bot`", inline=True)
+        embed.add_field(name="Perfil animado...", value=f"`{Pref}Perfil_A`", inline=True)
+        embed.add_field(name="Repositorio", value=f"`{Pref}repositorio`", inline=True)
+        embed.add_field(name="Suporte", value=f"**[{'Click Me'}]({'https://discord.gg/R3pcFs9'})**", inline=True)
+        self.embed_help = embed
+
     '''
     Comandos primarios:
     ==========================================================================]
@@ -29,18 +40,25 @@ class comandos(commands.Cog):
     @commands.guild_only()
     @commands.command()
     async def heLp(self, ctx):
-        client = discord.Client()
-        embed=discord.Embed(title="comandos primários do bot", description="temos uma função especial que se você estiver em duvida sobre os prefixos dos outros bots você \rpode usar o comando abaixo (prefixos).", color=cor)
-        embed.set_author(name="ZEN Comandos", url="https://discord.com/api/oauth2/authorize?client_id=745030751636029530&permissions=8&scope=bot" , icon_url="")
-        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/745030751636029530/f79fa139030a22e568cd122e63bf84dc.webp?size=1024")
-        embed.add_field(name="Comandos", value="`?cmds`", inline=True)
-        embed.add_field(name="Prefixos", value="`?prefixos`", inline=True)
-        embed.add_field(name="Link do bot", value="`?link_bot`", inline=True)
-        embed.add_field(name="Perfil animado...", value="`?Perfil_A`", inline=True)
-        embed.add_field(name="Repositorio", value="`?repositorio`", inline=True)
-        embed.add_field(name="Suporte", value=f"**[{'Click Me'}]({'https://discord.gg/R3pcFs9'})**", inline=True)
-        help_eact = await ctx.send(embed=embed)
+        # embed=discord.Embed(title="comandos primários do bot", description="temos uma função especial que se você estiver em duvida sobre os prefixos dos outros bots você \rpode usar o comando abaixo (prefixos).", color=cor)
+        # embed.set_author(name="ZEN Comandos", url="https://discord.com/api/oauth2/authorize?client_id=745030751636029530&permissions=8&scope=bot" , icon_url="")
+        # embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/745030751636029530/f79fa139030a22e568cd122e63bf84dc.webp?size=1024")
+        # embed.add_field(name="Comandos", value=f"`{Pref}cmds`", inline=True)
+        # embed.add_field(name="Bots", value=f"`{Pref}bots`", inline=True)
+        # embed.add_field(name="Link do bot", value=f"`{Pref}link_bot`", inline=True)
+        # embed.add_field(name="Perfil animado...", value=f"`{Pref}Perfil_A`", inline=True)
+        # embed.add_field(name="Repositorio", value=f"`{Pref}repositorio`", inline=True)
+        # embed.add_field(name="Suporte", value=f"**[{'Click Me'}]({'https://discord.gg/R3pcFs9'})**", inline=True)
+        help_eact = await ctx.send(embed=self.embed_help)
         await help_eact.add_reaction('👍')
+
+
+    @commands.Cog.listener()
+    async def on_message(self, messagens):
+        mention = str(messagens.content)
+        if str(self.client.user.mention) == mention or str(self.client.user.display_name) == mention:
+            help_eact = await messagens.channel.send(embed=self.embed_help)
+            await help_eact.add_reaction('👍')
 
 
     @commands.command()
@@ -55,14 +73,14 @@ class comandos(commands.Cog):
     async def cmds(self, ctx):
         embed=discord.Embed(title="divirta-se", color=cor)
         embed.set_author(name="Comandos",url="https://emoji.gg/assets/emoji/7277_green_flame.gif" , icon_url="https://emoji.gg/assets/emoji/7277_green_flame.gif")
-        embed.add_field(name="* `?fala`", value="ex:( ?falar comida) ele mandara uma mensagem com o que vc escreveu na frente do comando.", inline=False)
-        embed.add_field(name="* `?inf`", value=f"pode ser usado para saber as informaçoes do menbro ex:( ?inf @users).")
+        embed.add_field(name=f"* `{Pref}fala`", value="ex:( ?falar comida) ele mandara uma mensagem com o que vc escreveu na frente do comando.", inline=False)
+        embed.add_field(name=f"* `{Pref}inf`", value=f"pode ser usado para saber as informaçoes do menbro ex:( ?inf @users).")
         embed.set_footer(text="por enquanto e so.\r")
         await ctx.send(embed=embed)
 
 
     @commands.command()
-    async def prefixos(self, ctx):
+    async def bots(self, ctx):
         embed1 = discord.Embed(title='titulo', url="https://discord.com/api/oauth2/authorize?client_id=745030751636029530&permissions=8&scope=bot", color = cor)
         embed=discord.Embed(title=f"Não disponível no momento {embed1}", color=cor)
         await ctx.send(embed=embed)
@@ -76,9 +94,9 @@ class comandos(commands.Cog):
 
     @commands.command()
     async def Perfil_A(self, ctx):
-        embed=discord.Embed(title="Perfil animado pra ser usado no obs", description="Seguindo os comandos abaixo vc recebera o codg do seu perfil animado para ser usado no obs se seguindo a seguinte instrução( Obs -> add objt na cena -> add browser -> espaço para codg CSS ) para mais informações {Pref}Pa_tutorial." , color=cor)
+        embed=discord.Embed(title="Perfil animado pra ser usado no obs", description="Seguindo os comandos abaixo vc recebera o codg do seu perfil animado para ser usado no obs se seguindo a seguinte instrução( Obs -> add obj na cena -> add browser -> espaço para codg CSS ) para mais informações {Pref}Pa_tutorial." , color=cor)
         embed.set_author(name="Stream_perfil",url="https://emoji.gg/assets/emoji/7277_green_flame.gif" , icon_url="https://emoji.gg/assets/emoji/7277_green_flame.gif")
-        embed.add_field(name=f"* `{Pref}Pa_perfil`", value=f"ex:({Pref}Pa_perfil + @você + imagem/gif_1 + imagem/gif2) \rimagem/gif_1 que ficara visivel quando você parar de falar.\rimagem/gif_2 que ficara visível quando você falar algo.", inline=False)
+        embed.add_field(name=f"* `{Pref}Pa_perfil`", value=f"ex:({Pref}Pa_perfil + @você + imagem/gif_1 + imagem/gif2) \rimagem/gif_1 que ficara visível quando você parar de falar.\rimagem/gif_2 que ficara visível quando você falar algo.", inline=False)
         embed.add_field(name=f"* `{Pref}Pa_tample`", value=f"ex:({Pref}Pa_tample + Nome_do_templeite + imagem/gif_1 + imagem/gif2) \rVocê podera criar uma templeite que ficara salvo e podera ser reutilizado por outras pessoas", inline=False)
         embed.add_field(name=f"* `{Pref}Pa_codg_t`", value=f"ex:({Pref}Pa_codg_t + Nome_do_templeite + @pessoa_que_vai_utilizar)\rO e necessário por o nome do templeite existente colocar o nome do templeite e so mencionar você ou outra pessoa, loga apos vai receber mensagem com o codígo CSS. ", inline=False)
         embed.add_field(name=f"* `{Pref}Pa_tem_p`", value=f"ex:({Pref}Pa_tem_p) Para olhar/ver quantos templeites existe e mostra o nome deles enforma de lista.", inline=False)
@@ -142,20 +160,26 @@ class comandos(commands.Cog):
         await ctx.message.delete()
         await ctx.send(f)
 
+        """
+        discord.Permissions(permissions=0, **kwargs)
+        Attributes
+        add_reactions
+        administrator
+        """
+    @commands.command(aliases=['cler', 'clr', 'cls'])
+    @commands.has_permissions(administrator=True)
+    async def clear(self, ctx , *, quantia: int= None):
 
-    @commands.command(aliases=['cler', 'clr'])
-    async def clear(self, ctx , *,quantia: int= None):
-
-        if ctx.author.id == 5514369136392929280:
+        if quantia != int:
             if quantia == None:
-                embed=discord.Embed(title=f"**Erro no comando e necessário de uma quantia ex:({Pref}Clear + (Numero)**", color=cor_alert)
+                embed=discord.Embed(title=f"**Erro no comando e necessário de uma quantia ex:({Pref}Clear + [Numero]**", color=cor_alert)
                 await ctx.send(embed=embed)
                 return
             megs = await ctx.channel.history(limit=quantia + 1).flatten()
             for mensagem in megs:
                 await mensagem.delete()
         else:
-            embed=discord.Embed(title="**Você não tem permiçao de usar esse comando**", color=cor_alert)
+            embed=discord.Embed(title="**Erro no comando e necessário de uma quantia ex:({Pref}Clear + [Numero] ... numero se lembrem**", color=cor_alert)
             await ctx.send(embed=embed)
 
 

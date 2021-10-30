@@ -1,7 +1,31 @@
 
 cogs/__pycache__/
+__pycache__/*
+.google-cookie
+.google-cookie
+.vscode/*
+vscode
+secrect.py
+.__pycache__
+./__pycache__/
+### Python ###
+# Byte-compiled / optimized / DLL files
 __pycache__/
-.google-cookie
-.google-cookie
-.vscode/
+*.py[cod]
+*$py.class
+
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+*.pyc
 secrect.py

@@ -8,4 +8,4 @@ def TOKEN():
 
     return Secret
 
-Secret = TOKEN()
+Secret = "ODg0NDQ3MTY5NTIyODM1NDk4.YTYnnQ.mShY5W1a_gf7-vn9jMrqMw4hO_U"
