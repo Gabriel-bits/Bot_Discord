@@ -3,7 +3,7 @@ import tracemalloc
 from discord.activity import BaseActivity
 from discord.client import Client
 from discord.ext.commands import AutoShardedBot
-from secrect import Secret
+# from secrect import TOKEN, Secret
 from cogs.fuct import load_config
 
 
