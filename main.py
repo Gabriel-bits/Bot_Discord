@@ -3,7 +3,7 @@ import tracemalloc
 from discord.activity import BaseActivity
 from discord.client import Client
 from discord.ext.commands import AutoShardedBot
-# from secrect import TOKEN, Secret
+from secrect import TOKEN
 from cogs.fuct import load_config
 
 
@@ -53,4 +53,4 @@ if __name__ == "__main__":
         client.load_extension(modulo)
 
 
-client.run(Secret)
+client.run(TOKEN())
