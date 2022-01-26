@@ -1,3 +1,4 @@
+from cgi import print_environ
 import discord
 from discord import client
 from discord import mentions
@@ -21,14 +22,15 @@ class comandos(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-        embed=discord.Embed(title="comandos primários do bot", description="temos uma função especial que se você estiver em duvida sobre os prefixos dos outros bots você \rpode usar o comando abaixo (prefixos).", color=cor)
+        embed=discord.Embed(title="Comandos", description="temos uma função especial que se você estiver em duvida sobre os prefixos dos outros bots você \rpode usar o comando abaixo (prefixos).", color=cor)
         embed.set_author(name="ZEN Comandos", url="https://discord.com/api/oauth2/authorize?client_id=745030751636029530&permissions=8&scope=bot" , icon_url="")
         embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/745030751636029530/f79fa139030a22e568cd122e63bf84dc.webp?size=1024")
         embed.add_field(name="Comandos", value=f"`{Pref}cmds`", inline=True)
+        embed.add_field(name="Mini-games", value=f"`{Pref}minigames`", inline=True)
         embed.add_field(name="Bots", value=f"`{Pref}bots`", inline=True)
         embed.add_field(name="Link do bot", value=f"`{Pref}link_bot`", inline=True)
         embed.add_field(name="Perfil animado...", value=f"`{Pref}Perfil_A`", inline=True)
-        embed.add_field(name="Repositorio", value=f"`{Pref}repositorio`", inline=True)
+        embed.add_field(name="Repositorio", value=f"`{Pref}repositório`", inline=True)
         embed.add_field(name="Suporte", value=f"**[{'Click Me'}]({'https://discord.gg/R3pcFs9'})**", inline=True)
         self.embed_help = embed
 
@@ -56,7 +58,8 @@ class comandos(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, messagens):
         mention = str(messagens.content)
-        if str(self.client.user.mention) == mention or str(self.client.user.display_name) == mention:
+
+        if str(self.client.user.mention) in mention.replace("!", '') or str('@'+self.client.user.display_name) == mention:
             help_eact = await messagens.channel.send(embed=self.embed_help)
             await help_eact.add_reaction('👍')
 
@@ -69,9 +72,20 @@ class comandos(commands.Cog):
         await ctx.send(embed=embed)
 
 
+
     @commands.command()
+    async def minigames(self, ctx):
+        embed=discord.Embed(title="\rDivirta-se", color=cor)
+        embed.set_author(name="Mini-games",url="https://emoji.gg/assets/emoji/7277_green_flame.gif" , icon_url="https://emoji.gg/assets/emoji/7277_green_flame.gif")
+        embed.add_field(name=f"Drawing-cool", value=f"`{Pref}dw.help` Mini-game inspirado em gartic", inline=False)
+        embed.set_footer(text="por enquanto e so.\r")
+        await ctx.send(embed=embed)
+
+
+
+    @commands.command(aliases=['cmd'])
     async def cmds(self, ctx):
-        embed=discord.Embed(title="divirta-se", color=cor)
+        embed=discord.Embed(title="\rDivirta-se", color=cor)
         embed.set_author(name="Comandos",url="https://emoji.gg/assets/emoji/7277_green_flame.gif" , icon_url="https://emoji.gg/assets/emoji/7277_green_flame.gif")
         embed.add_field(name=f"* `{Pref}fala`", value="ex:( ?falar comida) ele mandara uma mensagem com o que vc escreveu na frente do comando.", inline=False)
         embed.add_field(name=f"* `{Pref}inf`", value=f"pode ser usado para saber as informaçoes do menbro ex:( ?inf @users).")
@@ -87,7 +101,7 @@ class comandos(commands.Cog):
 
 
     @commands.command()
-    async def repositorio(self, ctx):
+    async def repositório(self, ctx):
         embed=discord.Embed(title="https://github.com/Gabriel-bits/Bot-discord_v1", color=cor)
         await ctx.send(embed=embed)
 
@@ -112,7 +126,7 @@ class comandos(commands.Cog):
 
     @commands.command()
     async def meu_criador(self, ctx):
-        await ctx.send()
+        await ctx.send("<@551436913639292928>")
 
 
     @commands.command()
@@ -138,7 +152,7 @@ class comandos(commands.Cog):
         if usuario is None:
             await ctx.send(Pref+"inf + @usuário")
             return
-        usuario
+    
         embed=discord.Embed(title="Informação do usuário ", color=cor)
         embed.set_thumbnail(url=usuario.avatar_url)
         embed.add_field(name="Nome:", value="`{}`".format(usuario.name), inline=True)
@@ -149,7 +163,7 @@ class comandos(commands.Cog):
         await ctx.send(embed=embed)
 
 
-    @commands.command()
+    @commands.command(aliases=['palmas'])
     async def palma(self, ctx , *frase):
         f = str(frase)
         f = f.replace(' ', '👏')
@@ -166,6 +180,7 @@ class comandos(commands.Cog):
         add_reactions
         administrator
         """
+
     @commands.command(aliases=['cler', 'clr', 'cls'])
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx , *, quantia: int= None):
@@ -179,12 +194,12 @@ class comandos(commands.Cog):
             for mensagem in megs:
                 await mensagem.delete()
         else:
-            embed=discord.Embed(title="**Erro no comando e necessário de uma quantia ex:({Pref}Clear + [Numero] ... numero se lembrem**", color=cor_alert)
+            embed=discord.Embed(title=f"**Erro no comando e necessário de uma quantia ex:({Pref}Clear + [Numero] ... numero se lembrem**", color=cor_alert)
             await ctx.send(embed=embed)
 
 
     @commands.command()
-    async def test(self, ctx ):
+    async def test_de_arquivo(self, ctx ):
 
         await ctx.message.delete()
         await ctx.send(file=['C:/Users/Narutinn/Documents/Meus projetos/Meu Bot_Discord/main.py'])
@@ -206,7 +221,7 @@ class comandos(commands.Cog):
         
         embed = pes
 
-        await ctx.send(embed=embed)
+        await ctx.send(pes)
 
 
     @commands.command(aliases=['mems', 'mms', 'meme'])

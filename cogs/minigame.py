@@ -72,7 +72,7 @@ async def drawingcool_rounds(rounds, jogadores, ctx, bot):
 
             if reaction.emoji == emoji_V:
                 await dm_jogador.send(embed=embed_rapida(f"desenhe {Tema}"))
-                await dm_jogador.send(embed=embed_rapida("Pode começar a desenhar... termine rapido ou sua vez sera pulada"))
+                await dm_jogador.send(embed=embed_rapida("Pode começar a desenhar... termine rápido ou sua vez sera pulada"))
                 await ctx.send("Esta desenhado ...")
                 await msg.delete()
 
@@ -108,15 +108,28 @@ class drawingcool(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def teste(self, ctx):
-        embed=discord.Embed(description="sla", color=cor)
-        embed.set_image(url='https://cdn.discordapp.com/attachments/885603001237135362/889154489683177543/unknown.png')
-        embed.video
+    @commands.command(aliases=['dw.help', 'dw.h'])
+    async def dw_help(self, ctx):
+        embed=discord.Embed(title="\rDivirta-se desenhando com seus amigos", description=f"Evite fazer bagunças com a criação de salas de minigame" , color=cor)
+        embed.set_author(name="Drawing-cool",url="https://emoji.gg/assets/emoji/7277_green_flame.gif" , icon_url="https://emoji.gg/assets/emoji/7277_green_flame.gif")
+        embed.add_field(name=f"* `{Pref}dw.init`", value=f"Para iniciar ou criar uma sala", inline=False)
+        embed.add_field(name=f"* `{Pref}dw.entrar`", value=f"Entra na sala que esta aberta no canal de texto presente", inline=False)
+        embed.add_field(name=f"* `{Pref}dw.play`", value=f"ex:({Pref}dw.play + Numero de rodadas) O numero padrão e ", inline=False)
+        embed.add_field(name=f"* `{Pref}dw.finalizar`", value=f"Para finalizar a partida/sala", inline=False)
+        embed.add_field(name=f"* `{Pref}dw.tutorial`", value=f":)", inline=False)
+        embed.set_footer(text="por enquanto e so.\r")
+        embed = embed
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def dw__(self, ctx):
+    async def dw_teste_imag(self, ctx):
+        embed=discord.Embed(description="sla", color=cor)
+        embed.set_image(url='https://cdn.discordapp.com/attachments/885603001237135362/889154489683177543/unknown.png')
+        
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def dw_teste_(self, ctx):
         id_channel = ctx.channel.id
         print(id_channel)
         def check(m):
@@ -157,7 +170,7 @@ class drawingcool(commands.Cog):
         try:
             sets_sala = load_dw_sets(id_channel)
         except FileNotFoundError:
-            embed=discord.Embed(description=f"Não a nem um minigame acontecendo nessa sala.\rPara iniciar uma sala de minigames aqui digite `dw_init`", color=cor)
+            embed=discord.Embed(description=f"Não a um minigame/sala acontecendo nessa sala.\rPara iniciar uma sala de minigames aqui digite `dw_init`", color=cor)
             await ctx.send(embed=embed)
             # await ctx.send(f"não a nem um minigame acontecendo nessa sala.\rPara iniciar uma sala de minigames aqui digite `dw_init`")
             return
@@ -183,7 +196,6 @@ class drawingcool(commands.Cog):
             embed=discord.Embed(description=f"[{ctx.author.mention}] Ja esta participando dessa sala de minigames.", color=cor)
             await ctx.send(embed=embed)
             return
-            # await ctx.send(f"{ctx.author.mention} ja esta participando dessa sala de minigames.")
 
     @commands.command(aliases=["dw.p", "dw.play"])
     async def dw_play(self, ctx, rounds:int=None):
@@ -237,7 +249,7 @@ class drawingcool(commands.Cog):
                     print(2)
 
                 except asyncio.TimeoutError:
-                    await msg.send(embed=embed_rapida("Sua demora para aceitar/desistir resultou em, sua vez ser passada."))
+                    await dm_jogador.send(embed=embed_rapida("Sua demora para aceitar/desistir resultou em, sua vez ser passada."))
                     await ctx.channel.send(embed=embed_rapida(f"<@{jogador}> foi pulado."))
                     return
 
@@ -247,8 +259,8 @@ class drawingcool(commands.Cog):
 
                 if msg_resposta.content == "desenhar":
                     await dm_jogador.send(embed=embed_rapida(f"desenhe {Tema}"))
-                    await dm_jogador.send(embed=embed_rapida("Pode começar a desenhar... termine rapido ou sua vez sera pulada"))
-                    await ctx.send("Esta desenhado ...")
+                    await dm_jogador.send(embed=embed_rapida("Pode começar a desenhar... termine rápido ou sua vez sera pulada"))
+                    await ctx.send(embed=embed_rapida(f"<@{jogador}> Esta desenhado ..."))
                     await msg.delete()
 
                     # envio do desenho
@@ -273,14 +285,13 @@ class drawingcool(commands.Cog):
                     await m.add_reaction(emoji_V)
 
                 elif msg_resposta.content == "skip":
-                    await ctx.send(f" <@{jogador}> Pulou a vez ...")
+                    await ctx.send(embed=embed_rapida(f"<@{jogador}> Pulou a vez ..."))
                     await msg.delete()
 
                 # resposta
 
         await ctx.channel.send(embed=embed_rapida("Partida finalizada"))
      
-
     @commands.command(aliases=["dw.finalizar", "dw.f"])
     async def dw_finalizar(self, ctx):
         id_channel = ctx.channel.id
@@ -319,11 +330,18 @@ class drawingcool(commands.Cog):
                 await ctx.message.delete()
                 await msg.delete()
 
+            await ctx.send(embed=embed_rapida("Minigame finalizado"))
+
         else:
             embed=discord.Embed(description="Não a minigame rolando nesse canal.\r", color=cor)
             embed.set_footer(text=f"\rby - @{ctx.author.display_name}")
             msg_erro = await ctx.send(embed=embed, delete_after=60.0)
             await msg_erro.delete()
+
+    @commands.command(aliases=['dw.tutorial'])
+    async def dw_tutorial(self, ctx):
+        
+        await ctx.send(embed=embed_rapida('comando em faze de construção'))
 
 
 

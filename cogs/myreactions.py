@@ -21,7 +21,7 @@ class myreactions(commands.Cog):
             await messagens.channel.send("iala mo noia kskksskskk")
 
         if messagens.content in ('q?', '?', 'que?', 'que ?'):
-            __emoji = Client.get_emoji(self.bot ,725831269329404094)
+            __emoji = Client.get_emoji(self.bot ,725516165220401241)
             # await msg.add_reaction('🤔')
             await msg.add_reaction(__emoji)
 
