@@ -153,7 +153,7 @@ class drawingcool(commands.Cog):
             }
             save_dw_sets(id_channel, minigame)
 
-            embed = discord.Embed(title="Drawing-cool acabou de começar !!",description=f"\rparar participar deigite:\r`{Pref}dw_entrar`\r", color=cor)
+            embed = discord.Embed(title="Drawing-cool acabou de começar !!",description=f"\rparar participar deigite:\r`{Pref}dw.entrar`\r", color=cor)
             # embed.a
             embed.set_footer(text=f"\rby - @{ctx.author.display_name}")
 
@@ -170,7 +170,7 @@ class drawingcool(commands.Cog):
         try:
             sets_sala = load_dw_sets(id_channel)
         except FileNotFoundError:
-            embed=discord.Embed(description=f"Não a um minigame/sala acontecendo nessa sala.\rPara iniciar uma sala de minigames aqui digite `dw_init`", color=cor)
+            embed=discord.Embed(description=f"Não a um minigame/sala acontecendo nessa sala.\rPara iniciar uma sala de minigames aqui digite `dw.init`", color=cor)
             await ctx.send(embed=embed)
             # await ctx.send(f"não a nem um minigame acontecendo nessa sala.\rPara iniciar uma sala de minigames aqui digite `dw_init`")
             return
